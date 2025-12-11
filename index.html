@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tebak Suara!</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            justify-content: center;
+            align-items: center;
+            /* Background image from the bg/ folder with a dark overlay for contrast */
+            background-color: #eff5f2; /* fallback color */
+            background-image: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)), url(bg/bg1.jpg) ;
+            display: flex;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        .container {
+            background: rgba(241, 237, 237, 0.9);
+            border-radius: 60px;
+            box-shadow: 0 8px 16px rgba(17, 16, 16, 0.2);
+            width: 320px;
+            padding: 30px 25px;
+            text-align: center;
+            background-color: rgba(252, 247, 247, 0.5);
+            font-style: normal;
+        }
+
+        .circle-music {
+            width: 120px;
+            height: 120px;
+            background: #ffffff;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+          
+
+        .icon-music {
+            width: 90x;
+            height: 70px;
+            border-radius: 50%;
+        }
+            
+
+        h1 {
+            color: #24b629;
+            font-weight: 60;
+            margin-bottom: 15px;
+            font-size: 40px;
+            color: rgb(75, 197, 112);
+            text-shadow:
+            -1px -1px 0 #000,
+            1px -1px 0 #000,
+            -1px 1px 0 #000,
+            1px 1px 0 #000;
+            font-style: unset;
+        }
+
+        p.subtitle {
+            color: #0f0e0e;
+            margin-top: 9px;
+            margin-bottom: 45px;
+            font-size: 20px;
+            font-style: normal;
+        }
+
+        button.primary {
+            background-color: #3d9640;
+            background: 0;
+            background-image: url(bg/pngtree-button-wood-classic-png_2111607.png);
+            background-repeat: no-repeat;
+            background-size: cover;
+            color: #fff;
+            text-shadow:
+                -1px -1px 0 #000,
+                1px -1px 0 #000,        
+                -1px 1px 0 #000,
+                1px 1px 0 #000;
+            border: none;
+            font-size: 25px;
+            padding: 15px 0;
+            width: 100%;
+            border-radius: 150px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            margin-bottom:30px;
+            transition: background-color 0.5s ease;
+        }
+
+        button.primary:hover {
+        background-color: #318537;
+        color: rgb(231, 233, 233);
+        text-shadow: 0 0 5spx #ffffff, 0 0 10px #ffffff, 0 0 20px #ffffff;
+        box-shadow: 0 0 5px #047730, 0 0 2px #089e4b, 0 0 50px #069c2b, 0 0 100px #038619;
+        font-style: normal;
+        } 
+
+        .btn-group {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        button.secondary {
+            flex: 1;
+            border-radius: 8px;
+            padding: 10px 0;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        button.materi{
+            background-color: #251e13;
+            background: 0;
+            width: 140px;
+            height: 44px;
+            background-image: url(bg/pngtree-button-wood-classic-png_2111607.png);
+            background-repeat: no-repeat;
+            background-size: cover;
+            color: rgb(236, 228, 228);
+            font-size: 20px;
+            text-shadow: 
+                -1px -1px 0 #000,
+                1px -1px 0 #000,        
+                -1px 1px 0 #000,
+                1px 1px 0 #000;
+        }
+
+        button.materi:hover {
+            background-color: #161514 0px 0px;
+            color: #fff;
+            text-shadow: 0 0 5spx #ffffff, 0 0 10px #ffffff, 0 0 20px #ffffff;
+            box-shadow: 0 0 5px #ff9800, 0 0 2px #ff9800, 0 0 50px #ff9800, 0 0 100px #ff9800;
+            font-style: normal;
+        }
+
+        button.panduan {
+            background-color: #0c0c0c;
+            background: 0;
+            background-image: url(bg/pngtree-button-wood-classic-png_2111607.png);
+            background-repeat: no-repeat;
+            background-size: cover;
+            color: #f1eded;
+            font-size: 20px;
+            text-shadow: 
+                -1px -1px 0 #000,
+                1px -1px 0 #000,        
+                -1px 1px 0 #000,
+                1px 1px 0 #000;
+
+        }
+            
+
+        button.panduan:hover {
+            border-color: #54af54;
+            color: #e7dede;
+            text-shadow: 0 0 5spx #ffffff, 0 0 10px #ffffff, 0 0 20px #ffffff;
+            box-shadow: 0 0 5px #047730, 0 0 2px #089e4b, 0 0 50px #069c2b, 0 0 100px #038619;
+            font-style: normal;
+        }
+
+        /* Icon buku dan info */
+        .icon-book, .icon-info {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        /* Slide In Animation */
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes lideInDsown {
+            from {
+                opacity: 0;
+                transform: translateY(-40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Apply slide animations */
+        .container {
+            animation: slideInUp 0.8s ease-out;
+        }
+
+        .icon-circle {
+            animation: slideInDown 0.8s ease-out 0.1s both;
+        }
+
+        h1 {
+            animation: slideInUp 0.8s ease-out 0.2s both;
+        }
+
+        p.subtitle {
+            animation: slideInUp 0.8s ease-out 0.3s both;
+        }
+
+        button.primary {
+            animation: slideInUp 0.8s ease-out 0.4s both;
+        }
+
+        button.materi {
+            animation: slideInLeft 0.8s ease-out 0.5s both;
+        }
+
+        button.panduan {
+            animation: slideInRight 0.8s ease-out 0.5s both;
+        }
+
+    </style>
+</head>
+<body>
+    <audio id="bgMusic" src="sound/bg.mp3"></audio>
+
+    <div class="container">
+    <div>
+        
+        </div>
+        <h1>Tebak Hewan</h1>
+        <p class="subtitle">Belajar & Bermain Bersama Hewan</p>
+        <button class="primary" id="startButton" aria-label="Mulai Game">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="white"><path d="M8 5v14l11-7z"/></svg> Mulai Game
+        </button>
+        <div class="btn-group">
+            <button class="secondary materi" id="materi" aria-label="Materi">
+                <svg class="icon-book" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 4h12v16H6zM9 4v16M15 4v16" stroke="white" stroke-width="2" fill="none"/></svg>Materi
+            </button>
+            <button class="secondary panduan" id="panduan" aria-label="Panduan">
+                <svg class="icon-info" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/><line x1="12" y1="8" x2="12" y2="12" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="16" r="1" fill="currentColor"/></svg>Panduan
+
+    <script>
+        
+document.getElementById("startButton").addEventListener("click", function() {
+    const music = document.getElementById("bgMusic");
+    
+    music.volume = 1; // Atur volume sesuai kebutuhan
+    music.loop = true; // Agar musik berulang
+    music.play().catch(() => {
+        // Jika autoplay diblokir browser, tunggu klik
+        document.body.addEventListener("click", () => music.play(), { once: true });
+    });
+});
+
+        document.getElementById('startButton').addEventListener('click', function() {
+            window.location.href = 'game.html';
+        });
+    </script>
+    <script>
+        document.getElementById('materi').addEventListener('click', function() {
+            window.location.href = 'mareti.html';
+        });
+    </script>
+    <script>
+        document.getElementById('panduan').addEventListener('click', function() {
+            window.location.href = 'panduan.html';
+        });
+    
+  </script>
+    </script>
+</body>
+</html>

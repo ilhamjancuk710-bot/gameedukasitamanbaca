@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jawaban Benar</title>
+  <style>
+    /* Reset margin dan padding */
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      /* Background image from bg/ with semi-transparent gradient overlay for contrast */
+      background-color: #cdeafe; /* fallback color */
+      background-image: url('bg/bg2.jpeg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    .header {
+      max-width: 900px;
+      margin: 15px auto 0;
+      background: rgba(255,255,255,0.6);
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 15px;
+      font-weight: bold;
+      font-size: 16px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+      position: absolute;
+      top: 15px;
+      width: calc(100% - 30px);
+    }
+
+    /* Container utama */
+    .container {
+      max-width: 500px;
+      background: rgba(255,255,255,0.9);
+      border-radius: 20px;
+      padding: 40px 30px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      text-align: center;
+      margin-top: 80px;
+    }
+
+    .emoji {
+      font-size: 80px;
+      margin-bottom: 20px;
+      animation: bounce 0.6s ease-in-out;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    .title {
+      font-size: 36px;
+      font-weight: 800;
+      color: #047857;
+      margin-bottom: 10px;
+    }
+
+    .message {
+      font-size: 18px;
+      color: #374151;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .score-info {
+      margin: 20px 0;
+      padding: 15px;
+      background: #d1fae5;
+      border-radius: 12px;
+      border-left: 50px solid #047857;
+      color: #065f46;
+      font-weight: 600;
+    }
+
+    /* Back button */
+    .back-btn {
+      margin-top: 25px;
+      display: inline-block;
+      padding: 12px 24px;
+      border-radius: 10px;
+      border: none;
+      background: #047857;
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 16px;
+    }
+
+    .back-btn:hover {
+      background: #065f46;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(4, 120, 87, 0.3);
+    }
+
+    .back-btn:active {
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div>Skor <span id="scoreValue">2</span></div>
+  </header>
+
+  <main class="container">
+    <div class="emoji">🎉</div>
+    <h1 class="title">Benar!</h1>
+    <p class="message">Luar biasa! Jawaban Anda sudah tepat.</p>
+    <div id="scoreInfo" class="score-info"></div>
+    <a id="backBtn" class="back-btn" href="slide5.html">Lanjut ke Soal Berikutnya</a>
+  </main>
+  <audio id="winSound" src="sound/benar.mp3"></audio>
+
+  <script>
+    // baca query param score
+    function getQueryParam(name) {
+      const params = new URLSearchParams(window.location.search);
+      return params.get(name);
+    }
+
+    const score = getQueryParam('score');
+    const scoreEl = document.getElementById('scoreValue');
+    const scoreInfoEl = document.getElementById('scoreInfo');
+
+    // tampilkan skor jika ada
+    if (score) {
+      scoreEl.textContent = score;
+      scoreInfoEl.textContent = 'Skor Anda: ' + score;
+    }
+    // Putar suara menang otomatis
+const winSound = document.getElementById("winSound");
+winSound.volume = 1.0;
+
+winSound.play().catch(() => {
+  // Jika autoplay diblokir browser, tunggu klik
+  document.body.addEventListener("click", () => winSound.play(), { once: true });
+});
+  </script>
+</body>
+</html>

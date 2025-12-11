@@ -1,0 +1,244 @@
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: url('bg/bg1.jpg');
+  background-size: auto;
+  background-position: center;
+  padding: 22px;
+}
+
+/* HEADER TENGAH */
+.header {
+  text-align: center;
+    margin-top: 16px;
+    font-weight: 600;
+    font-size: 18px;
+    color: #141414;
+    user-select: none;
+    font-weight: bold;
+    font-style:oblique;
+    text-shadow: 
+      -1px -1px 0 #1b1a1a,
+      1px -1px 0 #161515,        
+      -1px 1px 0 #131212,
+      1px 1px 0 #1b1b1b;
+  width: 80%;
+  max-width: 420px;
+  background: rgba(223, 241, 255, 0.90);
+  background: 0;
+background-image: url(bg/pngtree-button-wood-classic-png_2111607.png);
+ background-repeat: no-repeat;
+background-size: cover;
+  margin: 0 auto 25px auto;
+  padding: 15px;
+  text-align: center;
+  border-radius: 15px;
+  font-size: 50px;
+  padding-top: 10px;
+  margin-top: -10px;
+  font-weight: 7000;
+  color: #f2f5f8;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* LIST */
+.list-container {
+  max-width: 420px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ITEM */
+.item {
+  background: rgba(241, 240, 240, 0.9);
+  background: 0;
+background-image: url(bg/pngtree-button-wood-classic-png_2111607.png);
+ background-repeat: no-repeat;
+background-size: cover;
+  padding: 10px 50px;
+  border-radius: 39px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(37, 36, 36, 0.12);
+  backdrop-filter: blur(4px);
+  padding-top: 10px;
+
+}
+
+/* ICON HURUF */
+.icon-letter {
+  width: 40px;
+  height: 40px;
+  background: #cdeaff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  color: #004e91;
+  margin-right: 12px;
+}
+
+/* TEKS */
+.text-area {
+  flex-grow: 1;
+  color: #f0e9e9;
+  font-style: oblique;
+  text-align : left;
+  font-size: 20px;
+    margin-top: 10px;
+    font-weight: 600;
+    font-size: 18px;
+    color: #f7f6f6;
+    user-select: none;
+    font-size: 26px;
+    font-weight: bold;
+    text-shadow: 
+      -1px -1px 0 #111111,
+      1px -1px 0 #0e0d0d,        
+      -1px 1px 0 #181717,
+      1px 1px 0 #1b1b1b;
+
+}
+
+.hewan-title {
+  margin: 0;
+  font-size: 27px;
+  font-weight: 700;
+  
+}
+
+.sub {
+  color: #eee9e9;
+  font-size: 14px;
+}
+
+/* 🔊 BUTTON BUNYI */
+.sound-btn {
+  border: none;
+  background: #fff;
+  font-size: 24px;
+  border-radius: 10px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.sound-btn:hover {
+  background: #d9eeff;
+  transform: scale(1.15);
+}
+
+.sound-btn:active {
+  transform: scale(1.0);
+}
+.text-area {
+    transform: scale(0.5);
+    opacity: 0;
+    animation: popupAnim 0.4s ease forwards;
+}
+
+@keyframes lideInDsown {
+            from {
+                opacity: 0;
+                transform: translateY(-40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+@keyframes popupAnim {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+.icon-letter {
+    transform: scale(0.5);
+    opacity: 0;
+    animation: popupAnim 0.4s ease forwards;
+}
+
+@keyframes popupAnim {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+.item {
+    transform: scale(0.9999);
+    opacity: 0;
+    animation: popupAnim 0.999s ease forwards;
+}
+
+@keyframes popupAnim {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.header {
+    transform: scale(1.999);
+    opacity: 0;
+    animation: popupAnim 1.999s ease forwards;
+}
+
+@keyframes popupAnim {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+#homeButton {
+    position: fixed;
+    top: 29px; /* Jarak dari atas layar */
+    right: 330px;
+    background-color: #fafcfd;
+    background: 0;
+background-image: url(bg/pngtree-home-button-black-png-image_3262274.png);
+ background-repeat: no-repeat;
+background-size: cover;
+    width: 120px;
+    height: 50px;
+    border: none;
+    padding: 10px 22px;
+    font-size: 1opx;
+    border-radius: 3000px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#homeButton:hover {
+    background-color: #0056b3; /* Warna saat hover */
+}

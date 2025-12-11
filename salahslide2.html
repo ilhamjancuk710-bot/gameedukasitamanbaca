@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Layout Klon D Detail</title>
+<style>
+  /* Reset margin dan padding */
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* Background image from bg/ with semi-transparent gradient overlay for contrast */
+    background-color: #cdeafe; /* fallback color */
+    background-image: linear-gradient(to bottom, rgba(92,172,238,0.55), rgba(205,234,254,0.55)), url('bg/bg1.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+
+  /* Header Klon D dan hati */
+  .header {
+    max-width: 900px;
+    margin: 15px auto 0;
+    background: rgba(255,255,255,0.6);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 15px;
+    font-weight: bold;
+    font-size: 16px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+  }
+
+  .header .hearts {
+    color: #d81b2a;
+    font-size: 30px;
+    letter-spacing: 4px;
+  }
+
+  /* Container utama */
+  .container {
+    max-width: 900px;
+    margin: 20px auto;
+    background: rgba(255,255,255,0.7);
+    border-radius: 15px;
+    padding: 25px 30px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+  }
+
+  /* Lingkaran besar hijau */
+  .circle-big {
+    margin: 0 auto;
+    width: 150px;
+    height: 150px;
+    background: #131413;
+    border-radius: 50%;
+    position: relative;
+    box-shadow: inset 0px 0px 8px rgba(0,0,0,0.2);
+  }
+  /* Titik putih kecil di tengah lingkaran */
+  .circle-big::after {
+    content: "";
+    width: 8px;
+    height: 8px;
+    background: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 4px white;
+  }
+
+  /* Play button placed in the center of the green circle */
+  .circle-big .play-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255,255,255,0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .circle-big .play-btn svg {
+    width: 34px;
+    height: 34px;
+    fill: #ffffff;
+    filter: drop-shadow(0 2px 2px rgba(223, 29, 29, 0.25));
+  }
+
+  .circle-big .play-btn:hover {
+    transform: translate(-50%, -50%) scale(1.05);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.28);
+    background: rgba(255,255,255,0.18);
+  }
+
+  .circle-big .play-btn:active {
+    transform: translate(-50%, -50%) scale(0.98);
+    box-shadow: inset 1px 1px 6px rgba(0,0,0,0.18);
+  }
+
+  .circle-big .play-btn:focus {
+    outline: 3px solid rgba(255,255,255,0.2);
+    outline-offset: 2px;
+  }
+
+  /* Label di bawah lingkaran besar */
+  .label-circle {
+    text-align: center;
+    margin-top: 10px;
+    font-weight: 600;
+    font-size: 18px;
+    color: #141414;
+    user-select: none;
+    font-size: 26px;
+    font-weight: bold;
+    font-style:oblique;
+    text-shadow: 
+      -1px -1px 0 #f8f2f2,
+      1px -1px 0 #f7f0f0,        
+      -1px 1px 0 #fffafa,
+      1px 1px 0 #1b1b1b;
+  }
+
+  /* Grid untuk kotak-kotak bawah */
+  .grid-boxes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-top: 70px; /* increased spacing to push buttons slightly lower */
+  }
+
+  /* Feedback text shown after user selects an answer */
+  #feedback {
+    text-align: center;
+    margin-top: 18px;
+    font-weight: 700;
+    font-size: 18px;
+    min-height: 24px;
+    transition: opacity 0.18s ease, transform 0.18s ease;
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+
+  #feedback.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  #feedback.correct {
+    color: #137333;
+  }
+
+  #feedback.wrong {
+    color: #b91c1c;
+  }
+
+  /* Kotak kecil */
+  button {
+    background: #fdfbfb;
+    background: 0;
+    background-image: url(bg/pngtree-button-wood-classic-png_2111607.png);
+     background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 1500px;
+    padding: 10px 0;
+    text-align: center;
+    font-weight: 600;
+    font-size: 17px;
+    color: #fdf9f9;
+    box-shadow: 1px 1px 6px rgba(190, 46, 46, 0.08);
+    user-select: none;
+    cursor: pointer;
+  }
+
+  /* Efek active/sentuh */
+  button:active {
+    background: #e0e0e0;
+    border-color: #a10f0f;
+    box-shadow: inset 1px 1px 4px rgba(0,0,0,0.1);
+    transform: translateY(0px);
+  }
+
+  /* Efek touch untuk mobile */
+  @media (hover: none) and (pointer: coarse) {
+    button:active {
+      background: #a53b3b;
+      border-color: #6e6a6a;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      transform: scale(0.98);
+    }
+  }
+
+  /* Visual states for answer buttons */
+  .grid-boxes button.correct {
+    background: #d1fae5;
+    border-color: #10b981;
+    color: #065f46;
+    box-shadow: 0 4px 10px rgba(16,185,129,0.15);
+    transform: translateY(-2px);
+  }
+
+
+  .grid-boxes button.wrong {
+    background: #fee2e2;
+    border-color: #f43f5e;
+    color: #7f1d1d;
+    box-shadow: 0 4px 10px rgba(244,63,94,0.12);
+    transform: translateY(0);
+  }
+
+  /* Disabled buttons styling */
+  button[disabled] {
+    opacity: 0.55;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Header right area (lives + reset) */
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .reset-btn {
+    background: transparent;
+    border: 2px solid #4caf50;
+    color: #2e7d32;
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .reset-btn:hover {
+    background: #4caf50;
+    color: white;
+  }
+
+  .option {
+    display: flex;
+    justify-content: center;
+    gap: 130px;
+}
+
+.animal-button {
+    background: #e7e6e6;
+    border: none;
+    padding: 1px;
+    border-radius: 150px;
+    width: 1px;
+    cursor: pointer;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.animal-button img {
+    width: auto;   /* Atur besar gambar */
+    height: 100px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto 8px;
+}
+
+.animal-button span {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.container {
+    transform: scale(1.999);
+    opacity: 0;
+    animation: popupAnim 1.999s ease forwards;
+}
+
+@keyframes popupAnim {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+</style>
+</head>
+<body>
+
+    <header class="header">
+      <div>Skor <span id="scoreValue">0</span></div>
+      <div class="header-right">
+        <div class="hearts" id="lives">❤️ ❤️</div>
+        <button id="resetBtn" class="reset-btn" aria-label="Mulai ulang">Mulai Ulang</button>
+      </div>
+    </header>
+
+  <main class="container">
+      <div class="circle-big">
+        <button class="play-btn" aria-label="Putar suara">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M8 5v14l11-7z" />
+          </svg>
+        </button>
+      </div>
+    <div class="label-circle">suara apakah ini?</div>
+    <div id="feedback" aria-live="polite"></div>
+
+    <div class="grid-boxes">
+    <button>MONYET</button>
+    <button>KUCING</button>
+    <button>HARIMAU</button>
+    </div>
+    <div class="grid-boxes">
+    <button class="animal-button">
+        <img src="bg/monyet.jpg" alt="">
+        <span></span>
+    </button>
+
+    <button class="animal-button">
+        <img src="bg/kucing.jpg" alt="kucing">
+        <span></span>
+    </button>
+
+    <button class="animal-button">
+        <img src="bg/harimau.png" alt="harimau">
+        <span></span>
+    </button>
+</div>
+  </main>
+ <script src="salahslide22.js"></script>
+</body>
+</html>

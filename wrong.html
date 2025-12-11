@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jawaban Salah</title>
+  <style>
+    /* Reset margin dan padding */
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      /* Background image from bg/ with semi-transparent gradient overlay for contrast */
+      background-color: #cdeafe; /* fallback color */
+      background-image: linear-gradient(to bottom, rgba(92,172,238,0.55), rgba(205,234,254,0.55)), url('bg/1.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    .header {
+      max-width: 900px;
+      margin: 15px auto 0;
+      background: rgba(255,255,255,0.6);
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 15px;
+      font-weight: bold;
+      font-size: 16px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+      position: absolute;
+      top: 15px;
+      width: calc(100% - 30px);
+    }
+
+    /* Container utama */
+    .container {
+      max-width: 500px;
+      background: rgba(255,255,255,0.9);
+      border-radius: 20px;
+      padding: 40px 30px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      text-align: center;
+      margin-top: 80px;
+    }
+
+    .emoji {
+      font-size: 80px;
+      margin-bottom: 20px;
+      animation: shake 0.5s ease-in-out;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-8px); }
+      75% { transform: translateX(8px); }
+    }
+
+    .title {
+      font-size: 36px;
+      font-weight: 800;
+      color: #b91c1c;
+      margin-bottom: 10px;
+    }
+
+    .message {
+      font-size: 18px;
+      color: #374151;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .lives-info {
+      margin: 20px 0;
+      padding: 15px;
+      background: #fee2e2;
+      border-radius: 12px;
+      border-left: 4px solid #b91c1c;
+      color: #7f1d1d;
+      font-weight: 600;
+    }
+
+    .hint {
+      margin-top: 15px;
+      padding: 12px;
+      background: #fef3c7;
+      border-radius: 10px;
+      color: #92400e;
+      font-size: 14px;
+      font-style: italic;
+    }
+
+    /* Back button */
+    .back-btn {
+      margin-top: 25px;
+      display: inline-block;
+      padding: 12px 24px;
+      border-radius: 10px;
+      border: none;
+      background: #b91c1c;
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 16px;
+    }
+
+    .back-btn:hover {
+      background: #991b1b;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(185, 28, 28, 0.3);
+    }
+
+    .back-btn:active {
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div>Nyawa <span id="livesValue">  0</span></div>
+  </header>
+
+  <main class="container">
+    <div class="emoji">😢</div>
+    <h1 class="title">Salah!</h1>
+    <p class="message">Ayo coba lagi! Dengarkan suaranya dengan lebih seksama.</p>
+    <div id="livesInfo" class="lives-info"></div>
+    <div class="hint">💡 Dengarkan kembali suara hewan tersebut dan pilih jawaban yang benar.</div>
+    <a id="backBtn" class="back-btn" href="salahslide2.html">Coba Lagi</a>
+  </main>
+  <audio id="winSound" src="sound/salah.mp3"></audio>
+  
+
+  <script>
+    // baca query param lives
+    function getQueryParam(name) {
+      const params = new URLSearchParams(window.location.search);
+      return params.get(name);
+    }
+
+    const lives = getQueryParam('lives');
+    const livesEl = document.getElementById('livesValue');
+    const livesInfoEl = document.getElementById('livesInfo');
+
+    // tampilkan nyawa jika ada
+    if (lives) {
+      livesEl.textContent = lives;
+      if (lives <= 0) {
+        livesInfoEl.textContent = 'Permainan Berakhir! Nyawa Anda habis.';
+        document.getElementById('backBtn').textContent = 'Mulai Ulang Game';
+      } else {
+        livesInfoEl.textContent = 'Nyawa Tersisa: ' + lives;
+      }
+    }
+    // Putar suara menang otomatis
+const winSound = document.getElementById("winSound");
+winSound.volume = 1.0;
+
+winSound.play().catch(() => {
+  // Jika autoplay diblokir browser, tunggu klik
+  document.body.addEventListener("click", () => winSound.play(), { once: true });
+});
+  </script>
+</body>
+</html>

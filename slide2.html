@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Hasil</title>
+  <style>
+    body{font-family:Segoe UI, Tahoma, Geneva, Verdana, sans-serif;margin:0;display:flex;align-items:center;justify-content:center;height:100vh;background:#f3f4f6}
+    .card{background:white;padding:28px;border-radius:12px;box-shadow:0 8px 24px rgba(2,6,23,0.08);text-align:center;max-width:420px}
+    .result.correct{color:#047857;font-size:28px;font-weight:800}
+    .result.wrong{color:#b91c1c;font-size:28px;font-weight:800}
+    .score{margin-top:16px;font-size:18px;color:#1f2937;font-weight:600}
+    .note{margin-top:12px;color:#374151}
+    .back{margin-top:20px;display:inline-block;padding:8px 14px;border-radius:8px;background:#047857;color:#fff;text-decoration:none;font-weight:600}
+    .back.wrong{background:#b91c1c}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div id="result" class="result">--</div>
+    <div id="score" class="score"></div>
+    <div id="note" class="note"></div>
+    <a id="backBtn" class="back" href="index.html">Kembali</a>
+  </div>
+
+  <script>
+    // baca query param result dan score
+    function getQueryParam(name) {
+      const params = new URLSearchParams(window.location.search);
+      return params.get(name);
+    }
+
+    const result = getQueryParam('result');
+    const score = getQueryParam('score');
+    const resultEl = document.getElementById('result');
+    const scoreEl = document.getElementById('score');
+    const noteEl = document.getElementById('note');
+    const backBtn = document.getElementById('backBtn');
+
+    if (result === 'correct') {
+      resultEl.textContent = 'Benar!';
+      resultEl.classList.add('correct');
+      noteEl.textContent = 'Bagus! Lanjut ke soal berikutnya.';
+      backBtn.textContent = 'Lanjut';
+      backBtn.classList.add('correct');
+    } else if (result === 'wrong') {
+      resultEl.textContent = 'Salah';
+      resultEl.classList.add('wrong');
+      noteEl.textContent = 'Coba lagi atau mulai ulang permainan.';
+      backBtn.textContent = 'Kembali';
+      backBtn.classList.add('wrong');
+    } else {
+      resultEl.textContent = 'Tidak ada hasil';
+      noteEl.textContent = 'Buka halaman ini melalui permainan.';
+      backBtn.textContent = 'Kembali ke Game';
+      backBtn.classList.add('wrong');
+    }
+
+    // tampilkan skor jika ada
+    if (score) {
+      scoreEl.textContent = 'Skor: ' + score;
+    }
+  </script>
+</body>
+</html>
